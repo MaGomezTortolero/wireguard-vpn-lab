@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portal WireGuard</title>
+<style>
+  *{box-sizing:border-box} body{margin:0;background:#101923;color:#eef6fa;font:16px system-ui} main{max-width:1080px;margin:auto;padding:40px 24px}
+  header{border-bottom:1px solid #324556;padding-bottom:24px;margin-bottom:28px} h1{font-size:clamp(2rem,5vw,3.8rem);margin:8px 0}
+  p{color:#bacbd6} .panel,article{background:#182734;border:1px solid #324556;border-radius:14px;padding:20px;margin-bottom:16px}
+  form{display:grid;gap:12px} label{display:grid;gap:4px} input,select,button,textarea{font:inherit;color:inherit;border:1px solid #567080;border-radius:7px;background:#101923;padding:10px;max-width:100%}
+  button{background:#73dfc1;color:#101923;font-weight:700;cursor:pointer} button:disabled{opacity:.65;cursor:wait}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+  #note{color:#ffcf92;min-height:24px} textarea{width:100%;margin-top:12px} article h3{margin:0}
+</style>
+<main>
+<header><h1>Portal WireGuard</h1><p id="mode">Acceso a la VPN</p></header>
+<div id="note" role="status"></div>
+<section class="panel" id="login-area">
+<h2>Iniciar sesión</h2>
+<form id="login">
+<label>Correo<input name="email" type="email" required autocomplete="username"></label>
+<label>Contraseña<input name="password" type="password" required autocomplete="current-password"></label>
+<button>Ingresar</button>
+</form>
+</section>
+<section id="portal" hidden>
+<button id="logout" type="button">Cerrar sesión</button>
+<div id="admin" hidden>
+<h2>Administrar acceso</h2>
+<div class="grid">
+<form class="panel" id="new-user">
+<h3>Agregar usuario</h3>
+<label>Correo<input name="email" type="email" required></label>
+<label>Contraseña inicial<input name="password" type="password" minlength="12" maxlength="256" autocomplete="new-password" required></label>
+<button>Crear usuario</button>
+</form>
+<form class="panel" id="new-device">
+<h3>Agregar puesto</h3>
+<label>Nombre del equipo<input name="label" maxlength="80" required></label>
+<label>Titular<select name="owner" id="owners"></select></label>
+<label>Clave pública WireGuard<input name="publicKey" maxlength="44" required></label>
+<button type="button" id="sample" hidden>Usar clave de demostración</button>
+<label>Modo<select name="mode"><option value="private">Red privada</option><option value="full">Internet por la VPN</option></select></label>
+<button>Registrar puesto</button>
+</form>
+</div>
+</div>
+<h2>Puestos</h2>
+<div class="grid" id="devices"></div>
+</section>
+</main>
+<script src="/ui.js" defer></script>
+</html>
